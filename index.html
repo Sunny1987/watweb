@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.9.2" integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body class="container">
+
+<script>
+    function toggleFileInput() {
+        var fileInput = document.getElementById('file');
+        var urlInput = document.getElementById('urlValue');
+        var depthInput = document.getElementById('depth');
+        //var checkbox = document.getElementById('check')
+        if (fileInput.disabled) {
+            fileInput.disabled = false;
+            urlInput.disabled = true;
+            depthInput.disabled = true;
+        } else {
+            fileInput.disabled = true;
+            urlInput.disabled = false;
+            depthInput.disabled = false;
+        }
+    }
+</script>
+<h1>Web Accessibility Testing</h1>
+<div class="row mt-4 g-4">
+    <div class="col-8">
+        <h1>Results</h1>
+    </div>
+    <div class="col-4">
+        <h1 class="mb-4">Scan</h1>
+        <form hx-post="/scan" enctype="multipart/form-data">
+            <div class="mb-2">
+                <label for="urlValue">URL</label>
+                <input type="text" name="urlValue" id="urlValue" class="form-control"/>
+            </div>
+            <div class="mb-3">
+                <label for="depth">Depth</label>
+                <input type="number" name="depth" id="depth" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="check">Upload HTML file
+                    <input type="checkbox" name="check" id="check" onchange="toggleFileInput()"/>
+                </label>
+                <input type="file" id="file" name="file" disabled class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <span class="spinner-border spinner-border-sm htmx-indicator" id="spinner" role="status" aria-hidden="true"></span>
+                Scan
+            </button>
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>
